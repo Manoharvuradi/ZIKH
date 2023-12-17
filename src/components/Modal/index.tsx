@@ -1,10 +1,14 @@
+import Button from 'Y/common/buttons/filledButton';
 import React from 'react'
 interface IModal {
-    addDataModel: any;
+    addDataModel: boolean;
+    setAddDataModel: (open: boolean) => void;
 }
 function ShowDataAddModel({
-    addDataModel
+    addDataModel,
+    setAddDataModel
 }: IModal) {
+    console.log("addDataModel", addDataModel);
     return (
         <>
             {addDataModel && (
@@ -13,6 +17,11 @@ function ShowDataAddModel({
                     <p>This is test data</p>
                 </div>
             )}
+            <Button
+                text={"Close"}
+                onClick={() => setAddDataModel(false)}
+            />
+
         </>
     )
 }
