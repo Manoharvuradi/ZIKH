@@ -22,15 +22,17 @@ function LocationMarker({
          map.locate();
       },
       locationfound(e) {
-         setPosition(e.latlng)
+         setPosition(e.latlng);
+         setAddDataModel(true);
       },
    })
 
 
    return position === null ? null : (
-      <Marker position={position} eventHandlers={{ click: () => { setAddDataModel(true) } }}>
-         <Popup>You are here</Popup>
-      </Marker>
+      // <Marker position={position} eventHandlers={{ click: () => { setAddDataModel(true) } }}>
+      //    <Popup>You are here</Popup>
+      // </Marker>
+      <></>
    )
 }
 

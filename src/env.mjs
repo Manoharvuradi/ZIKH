@@ -18,10 +18,8 @@ const server = z.object({
     // VERCEL_URL doesn't include `https` so it cant be validated as a URL
     process.env.VERCEL ? z.string().min(1) : z.string().url(),
   ),
-  // Add `.min(1) on ID and SECRET if you want to make sure they're not empty
-  DISCORD_CLIENT_ID: z.string(),
-  DISCORD_CLIENT_SECRET: z.string(),
-  API_KEY: z.string(),
+  ENVIRONMENT: z.enum(["LOCAL", "DEVELOPMENT", "UAT", "PRODUCTION"]).optional(),
+  API_KEY: z.string().optional(),
 });
 
 /**
@@ -43,9 +41,8 @@ const processEnv = {
   NODE_ENV: process.env.NODE_ENV,
   NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
   NEXTAUTH_URL: process.env.NEXTAUTH_URL,
-  DISCORD_CLIENT_ID: process.env.DISCORD_CLIENT_ID,
-  DISCORD_CLIENT_SECRET: process.env.DISCORD_CLIENT_SECRET,
-  API_KEY: process.env.API_KEY
+  API_KEY: process.env.API_KEY,
+  ENVIRONMENT: undefined
 };
 
 // Don't touch the part below
