@@ -3,6 +3,7 @@ import {
   getServerSession,
   type NextAuthOptions,
   type DefaultSession,
+  User,
 } from "next-auth";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { env } from "Y/env.mjs";
@@ -20,6 +21,8 @@ declare module "next-auth" {
   interface Session extends DefaultSession {
     user: {
       id: string;
+      name: string;
+      email: string;
       // ...other properties
       // role: UserRole;
     } & DefaultSession["user"];
@@ -59,7 +62,7 @@ export const authOptions: NextAuthOptions = {
         },
         password: { label: "Password", type: "password" },
       },
-      authorize: async (credentials, req) => {
+      authorize: async (credentials, req): Promise<User | null> => {
         if (credentials) {
           const user = await prisma.credentialsUser.findFirst({
             where: {
@@ -71,10 +74,7 @@ export const authOptions: NextAuthOptions = {
             },
           });
           if (!user) {
-           
             return null;
-          } else {
-           
           }
 
           const passwordValidation = await compare(
@@ -82,10 +82,9 @@ export const authOptions: NextAuthOptions = {
             user.password as string
           );
           if (!passwordValidation) {
-           
             return null;
           } else {
-            
+            return user as unknown as User; // Return the user object if authorization is successful
           }
         } else {
           return null;
@@ -94,6 +93,7 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
 };
+
 
 /**
  * Wrapper for `getServerSession` so that you don't need to import the `authOptions` in every file.
