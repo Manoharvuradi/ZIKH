@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import ShowDataAddModel from '../Modal';
-import { env } from 'process';
-import { generateLocation } from 'Y/utils/helpers';
+import { api } from 'Y/utils/api';
+// import { locationData } from 'Y/utils/helpers';
 
 interface ILocationMarker {
    setAddDataModel: (open: boolean) => void;
@@ -39,11 +39,16 @@ function LocationMarker({
 const Map = () => {
    const [addDataModel, setAddDataModel] = useState<boolean>(false);
    const [coorditnates, setCoordinates] = useState<[number, number]>();
+   const [locationDetails, setLocationDetails] = useState<any>();
+   const [loading, setLoading] = useState(false);
+
+   const {isLoading, data, error}: any = api.locationData.list.useQuery({ lat: Number(coorditnates?.[0]), lng: Number(coorditnates?.[1]) }, {enabled: addDataModel} )
    useEffect(() => {
-      if (coorditnates && coorditnates?.length) {
-         const location = generateLocation(coorditnates[0], coorditnates[1]);
+      if (coorditnates && coorditnates?.length && data) {
+        setLocationDetails(data);
       }
-   }, [coorditnates])
+   }, [coorditnates, data]);
+
    return (
       <>
          <div className='flex flex-row'>
@@ -64,7 +69,7 @@ const Map = () => {
                   <LocationMarker setAddDataModel={setAddDataModel} setCoordinates={setCoordinates} />
                </MapContainer>
             </div>
-            <ShowDataAddModel addDataModel={addDataModel} setAddDataModel={setAddDataModel} />
+            <ShowDataAddModel addDataModel={addDataModel} setAddDataModel={setAddDataModel} locationDetails={locationDetails?.results?.[0].components} />
          </div>
       </>
    )
