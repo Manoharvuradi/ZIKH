@@ -2,38 +2,41 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-    provider = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 datasource db {
-    provider = "postgresql"
-    url      = env("DATABASE_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model Example {
-    id        String   @id @default(cuid())
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model VerificationToken {
-    identifier String
-    token      String   @unique
-    expires    DateTime
+  identifier String
+  token      String   @unique
+  expires    DateTime
 
-    @@unique([identifier, token])
+  @@unique([identifier, token])
 }
 
 model LocationData {
-  id          Int              @id @unique @default(autoincrement())
-  crimeType   String
-  description String
-  createdAt   DateTime?        @default(now())
-  updatedAt   DateTime?        @updatedAt
-  createdBy   CredentialsUser? @relation("createdBy", fields: [createdById], references: [id])
-  createdById Int?
-  updatedBy   CredentialsUser? @relation("updatedBy", fields: [updatedById], references: [id])
-  updatedById Int?
+  id            Int              @id @unique @default(autoincrement())
+  lat           Int
+  lng           Int
+  crimeType     String
+  description   String
+  cityDetails Json?
+  createdAt     DateTime?        @default(now())
+  updatedAt     DateTime?        @updatedAt
+  createdBy     CredentialsUser? @relation("createdBy", fields: [createdById], references: [id])
+  createdById   Int?
+  updatedBy     CredentialsUser? @relation("updatedBy", fields: [updatedById], references: [id])
+  updatedById   Int?
 }
 
 model CredentialsUser {
@@ -44,4 +47,3 @@ model CredentialsUser {
   LocationDataCreatedBy LocationData[] @relation("createdBy")
   LocationDataUpdatedBy LocationData[] @relation("updatedBy")
 }
-
