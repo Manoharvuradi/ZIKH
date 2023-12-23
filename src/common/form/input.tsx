@@ -56,7 +56,7 @@ const InputField = ({
               id={name}
               type={type}
               name={name}
-              value={formValues?.[name] == "0" ? "0" : formValues?.[name]}
+              value={formValues?.[name] == "0" ? "0" : formValues?.[name] || ""}
               required={required && !formValues?.[name]}
               onChange={(e) => {
                   e.target.value = e.target.value.startsWith(" ")

@@ -1,5 +1,4 @@
 import { env } from "Y/env.mjs";
-import { loadBindings } from "next/dist/build/swc";
 
 export const locationData = (lat: number, lng: number) => {
     async function fetchData() {
