@@ -4,30 +4,30 @@ import { locationData } from "Y/server";
 import { prisma } from "Y/server/db";
 
 export const locationDataRouter = createTRPCRouter({
-    list:publicProcedure
+    list: publicProcedure
         .input(z.object({
             lat: z.number(),
             lng: z.number(),
-        })).query(async({ctx, input})=>{
-            try{
-               const locationDetails = await locationData(input.lat, input.lng);
-            return locationDetails;
-            }catch(error){
-                console.log(error);
+        })).query(async ({ ctx, input }) => {
+            try {
+                const locationDetails = await locationData(input.lat, input.lng);
+                return locationDetails;
+            } catch (error: any) {
+                throw new Error(error);
             }
         }),
     create: publicProcedure
-        .input(locationDataSchema()).query(async({ctx, input}: any)=>{
-            try{
+        .input(locationDataSchema()).mutation(async ({ ctx, input }: any) => {
+            try {
                 const locationDetails = await locationData(input.lat, input.lng);
-                const {components, ...rest} = locationDetails.results[0];
+                const { components, ...rest } = locationDetails.results[0];
                 const location = await prisma.locationData.create({
-                    data:{
+                    data: {
                         lat: input.lat,
                         lng: input.lng,
                         crimeType: input.crimeType,
                         description: input.description,
-                        cityDetails:{
+                        cityDetails: {
                             category: components.category,
                             city: components.city,
                             cityDistrict: components.city_district,
@@ -35,19 +35,39 @@ export const locationDataRouter = createTRPCRouter({
                             country: components.country,
                             countryCode: components.country_code,
                             neighbourhood: components.neighbourhood,
-                            postCode: components.postCode,
+                            postCode: components.postcode,
                             road: components.road,
-                            state: components.state,
+                            state: components.state_district,
+                            suburb: components.suburb
                         }
                     }
                 })
-            }catch(error){
-
+                return location;
+            } catch (error: any) {
+                throw new Error(error)
+            }
+        }),
+    update: publicProcedure
+        .input(z.object({
+            id: z.number(),
+            body: locationDataSchema()
+        })).mutation(async ({ ctx, input }) => {
+            try {
+                const locationData = await prisma.locationData.findFirst({
+                    where: {
+                        id: input.id
+                    },
+                    data:{
+                        ...input.body
+                    }
+                })
+            } catch (error: any) {
+                throw new Error(error)
             }
         })
 })
 
-function locationDataSchema(){
+function locationDataSchema() {
     return z.object({
         lat: z.number(),
         lng: z.number(),
@@ -64,6 +84,7 @@ function locationDataSchema(){
             postCode: z.string().optional(),
             road: z.string().optional(),
             state: z.string().optional(),
+            suburb: z.string().optional()
         }).optional()
     })
 }

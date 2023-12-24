@@ -69,7 +69,7 @@ const Map = () => {
                   <LocationMarker setAddDataModel={setAddDataModel} setCoordinates={setCoordinates} />
                </MapContainer>
             </div>
-            <ShowDataAddModel addDataModel={addDataModel} setAddDataModel={setAddDataModel} locationDetails={locationDetails?.results?.[0].components} />
+            <ShowDataAddModel addDataModel={addDataModel} setAddDataModel={setAddDataModel} locationDetails={locationDetails?.results?.[0].components} coorditnates={coorditnates}/>
          </div>
       </>
    )
