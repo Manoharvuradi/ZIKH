@@ -11,6 +11,12 @@ export const locationDataRouter = createTRPCRouter({
         })).query(async ({ ctx, input }) => {
             try {
                 const locationDetails = await locationData(input.lat, input.lng);
+                const response = await prisma.locationData.findFirst({
+                    where:{
+                        lat: +input.lat.toFixed(4),
+                        lng: +input.lng.toFixed(4)
+                    }
+                })
                 return locationDetails;
             } catch (error: any) {
                 throw new Error(error);
@@ -23,8 +29,8 @@ export const locationDataRouter = createTRPCRouter({
                 const { components, ...rest } = locationDetails.results[0];
                 const location = await prisma.locationData.create({
                     data: {
-                        lat: input.lat,
-                        lng: input.lng,
+                        lat: +input.lat.toFixed(4),
+                        lng: +input.lng.toFixed(4),
                         crimeType: input.crimeType,
                         description: input.description,
                         cityDetails: {
@@ -53,7 +59,7 @@ export const locationDataRouter = createTRPCRouter({
             body: locationDataSchema()
         })).mutation(async ({ ctx, input }) => {
             try {
-                const locationData = await prisma.locationData.findFirst({
+                const locationData = await prisma.locationData.update({
                     where: {
                         id: input.id
                     },
@@ -61,6 +67,7 @@ export const locationDataRouter = createTRPCRouter({
                         ...input.body
                     }
                 })
+                return locationData;
             } catch (error: any) {
                 throw new Error(error)
             }
