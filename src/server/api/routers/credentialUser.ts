@@ -25,8 +25,8 @@ export const credentialUserRouter = createTRPCRouter({
             }
         })
         return user;
-            }catch(error){
-                console.log("error",error)
+            }catch(error: any){
+                throw new Error(error);
             }
         })
 })

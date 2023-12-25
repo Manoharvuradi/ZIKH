@@ -67,6 +67,11 @@ function ShowDataAddModel({
                         } overflow-hidden transition-all duration-500`}>
                         <p>{locationDetails?.country}</p>
                         <p>{locationDetails?.city}</p>
+                            <Button
+                                className="ml-5"
+                                text={"Edit"}
+                                // type={"submit"}
+                            />
                         <form className='w-full' onSubmit={hanldeDataSubmit}>
                             <FormComponent
                                 inputs={crimeTypeDetailInputs}

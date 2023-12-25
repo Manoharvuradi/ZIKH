@@ -3,7 +3,7 @@ import { env } from "Y/env.mjs";
 export const locationData = (lat: number, lng: number) => {
     async function fetchData() {
         try{
-            const location = await fetch(`https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lng}&key=${env.API_KEY}`);
+            const location = await fetch(`https://api.opencagedata.com/geocode/v1/json?q=${lat.toFixed(4)}+${lng.toFixed(4)}&key=${env.API_KEY}`);
             if(!location.ok){
                 throw new Error(`HTTP error! Status: ${location.status}`)
             }
