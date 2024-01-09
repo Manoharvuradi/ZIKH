@@ -21,7 +21,7 @@ const FormComponent = ({
     tailwindClass
 }:IFormProps) => {
     return (
-        <div className={`grid w-full ${tailwindClass ?? ""}`}>
+        <div className={`grid grid-cols-2 gap-4 w-full p-4 rounded-md ${tailwindClass ?? ""}`}>
             {inputs.map((input: IInput, key: number)=>(
                 <InputField
                     key={key+ JSON.stringify(input)} 

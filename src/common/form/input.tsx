@@ -45,18 +45,17 @@ const InputField = ({
               style={{ pointerEvents: "none" }}
         >
             {label}
-            {required && <span className='text-red-500'>*</span>}
+            {required && <span className='text-red-500 font-bold'>*</span>}
         </label>
-        <input
-              className={`${disabled && "cursor-not-allowed"
-                  }  border-1 w-full appearance-none rounded px-3 py-2 leading-tight ${formErrors?.[name]
-                      ? "border-red-500"
-                      : "border-gray-300 focus:border-primary-blue"
-                  } focus:outline-none `}
+          <input
+              className={`border ${formErrors?.[name]
+                  ? "border-red-500"
+                  : "border-gray-300 focus:border-primary-blue"
+                  } w-full appearance-none rounded px-3 py-2 leading-tight focus:outline-none focus:border-[3px]`}
               id={name}
               type={type}
               name={name}
-              value={formValues?.[name] == "0" ? "0" : formValues?.[name] || ""}
+              value={formValues?.[name] === "0" ? "0" : formValues?.[name] || ""}
               required={required && !formValues?.[name]}
               onChange={(e) => {
                   e.target.value = e.target.value.startsWith(" ")

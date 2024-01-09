@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import ShowDataAddModel from '../Modal';
@@ -15,13 +15,31 @@ function LocationMarker({
    setCoordinates
 }: ILocationMarker) {
    const [position, setPosition] = useState<any>(null);
+   const [draggable, setDraggable] = useState(false);
+   const markerRef = useRef(null)
+   const eventHandlers = useMemo(
+      () => ({
+         dragend() {
+            const marker: any = markerRef.current
+            if (marker != null) {
+               setPosition(marker.getLatLng())
+            }
+         },
+      }),
+      [],
+   )
+   const toggleDraggable = useCallback(() => {
+      setDraggable((d) => !d)
+   }, [])
    const map = useMapEvents({
       click(e) {
+         //position of latitude and longitude
          setPosition(e.latlng);
          setCoordinates([e.latlng.lat, e.latlng.lng]);
          map.locate();
       },
       locationfound(e) {
+         //finding location
          setPosition(e.latlng);
          setAddDataModel(true);
       },
@@ -29,10 +47,19 @@ function LocationMarker({
 
 
    return position === null ? null : (
-      // <Marker position={position} eventHandlers={{ click: () => { setAddDataModel(true) } }}>
-      //    <Popup>You are here</Popup>
-      // </Marker>
-      <></>
+      <Marker
+         draggable={draggable}
+         eventHandlers={eventHandlers}
+         position={position}
+         ref={markerRef}>
+         <Popup minWidth={90}>
+            <span onClick={toggleDraggable}>
+               {draggable
+                  ? 'Marker is draggable'
+                  : 'Click here to make marker draggable'}
+            </span>
+         </Popup>
+      </Marker>
    )
 }
 

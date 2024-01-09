@@ -4,12 +4,12 @@ interface ButtonProps
         HTMLButtonElement
     > {
     // icon?: any;
-    text?: React.ReactNode;
-    onClick?: any;
+    text: React.ReactNode;
+    onClick: any;
     disabled?: boolean;
     className?: string;
 }
-export default function Button(props: any) {
+export default function Button(props: ButtonProps) {
     const { text, onClick, disabled, className, type } = props;
     return (
         <button
