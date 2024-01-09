@@ -5,7 +5,7 @@ import { getHTTPStatusCodeFromError } from "@trpc/server/http";
 import { TRPCError } from "@trpc/server";
 // import { convertStringToDateFormate } from "~/utils/constants";
 
-const ClaimCreateHandler = async (
+const LocationDateCreateHandler = async (
     req: NextApiRequest,
     res: NextApiResponse
 ) => {
@@ -13,10 +13,8 @@ const ClaimCreateHandler = async (
     const caller = appRouter.createCaller(ctx);
     if (req.method === "POST") {
         try {
-            // const data = req.body;
-            // const data = convertStringToDateFormate(req.body);
-            const claim = await caller.locationData.create(data);
-            res.status(200).json({ status: true, data: claim });
+            const locationData = await caller.locationData.create(req.body);
+            res.status(200).json({ status: true, data: locationData });
         } catch (cause) {
             if (cause instanceof TRPCError) {
                 const httpCode = getHTTPStatusCodeFromError(cause);
@@ -35,4 +33,4 @@ const ClaimCreateHandler = async (
     }
 };
 
-export default ClaimCreateHandler;
+export default LocationDateCreateHandler;

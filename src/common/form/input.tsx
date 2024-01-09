@@ -10,7 +10,7 @@ export interface IInputProps {
         value: string,
         index?: number
     ) => void | undefined;
-    formValues?: { [key: string]: any };
+    formValues: { [key: string]: any };
     index?: number;
     formErrors?: { [key: string]: any };
     setFormErrors?: any;
@@ -34,6 +34,41 @@ const InputField = ({
     checked,
 }:IInputProps) => {
     const {label, type, name, required, options} = input;
+    if(type === "textarea"){
+        let textAreaValue = formValues?.[name] || "";
+        const isTextareaValid = textAreaValue.length >= 50;
+        return (
+            <div className='' key = {name}>
+                <label
+                    className='block text-sm font-normal leading-6 text-gray-900'
+                    htmlFor={name}
+                    style={{pointerEvents: "none"}}
+                >
+                    {label}
+                    {required && <span className='text-red-500 text-xl'>*</span>}
+                </label>
+                <textarea
+                    rows={3}
+                    className={`${disabled && "cursor-not-allowed"
+                        }  w-full appearance-none rounded border-2 px-3 py-2 leading-tight text-gray-700 ${formErrors?.[name]
+                            ? "border-red-500"
+                            : "border-gray-300 focus:border-primary-blue"
+                        } focus:outline-none`}
+                    id={name}
+                    name={name}
+                    value={formValues?.[name] || ""}
+                    required={required}
+                    onChange={(e) => {
+                        e.target.value = e.target.value.startsWith(" ")
+                            ? e.target.value.trim()
+                            : e.target.value;
+                        handleChange(e, index ?? 0);
+                    }}
+                    disabled={disabled ? disabled : false}
+                />
+            </div>
+        )
+    }
   return (
     <div
         key={name}

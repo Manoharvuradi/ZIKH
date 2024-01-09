@@ -47,3 +47,16 @@ model CredentialsUser {
   LocationDataCreatedBy LocationData[] @relation("createdBy")
   LocationDataUpdatedBy LocationData[] @relation("updatedBy")
 }
+
+model CrimeTip {
+  id            Int     @id @default(autoincrement())
+  location      String
+  city          String
+  state         String
+  Zip           String
+  latitude      Decimal
+  longitude     Decimal
+  tip           String
+  personalInfo  String
+  addtionalInfo String
+}
