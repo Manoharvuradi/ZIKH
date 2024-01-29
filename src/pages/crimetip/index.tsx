@@ -64,17 +64,24 @@ const CrimeTip = () => {
 
     return (
         <div>
-            <h1 className='text-3xl font-bold'>Submit crime tip</h1>
-            <form onSubmit={handleSubmit}>
+            <h1 className='text-3xl font-bold m-3'>Submit crime tip</h1>
+            <form onSubmit={handleSubmit} className='m-2'>
                 <FormComponent
                     inputs={crimeTipInputs}
                     formValues={crimeTipFormValues}
                     handleChange={handleChangeCrimeTip}
                 />
-                <div className='px-4'>
-                <ButtonWithIcon text={"Use my location"} onClick={handleUseLocation} disabled={location.latitude != 0 && location.longitude != 0} userLocation={location.latitude}  className='px-4'/>
+                <div className='border-black border rounded-md w-52 px-3 py ml-3'>
+                    <ButtonWithIcon
+                        text={"Use My Location"}
+                        onClick={handleUseLocation}
+                        disabled={location.latitude !== 0 && location.longitude !== 0}
+                        userLocation={location.latitude}
+                        className='text-black' // Adjust padding of the button
+                    />
                 </div>
-                <div className='py-4 px-4'>
+
+                <div className='px-3 py-2'>
                 <InputField
                     input={{
                         label: "Whats your tip",
@@ -87,7 +94,7 @@ const CrimeTip = () => {
                 />
                 <p className='text-sm'>please include details like location , date, time and description of people involved.</p>
                 </div>
-                <div className='py-4 px-2'>
+                <div className='px-3 py-2'>
                 <InputField
                     input={{
                         label: "Would like to provide personal information",
@@ -105,11 +112,13 @@ const CrimeTip = () => {
                             name: "addtionalInfo",
                         required: false
                     }}
-                        formValues={{ "addtionalInfo": addtionalInfo }}
+                    formValues={{ "addtionalInfo": addtionalInfo }}
                     handleChange={handleAdditionalInfo}
                 />
                 </div>
-                <Button type='submit' text={"submit"}/>
+                <div className='px-3 py-2'>
+                <Button type='submit' text={"submit tip"} className='bg-gray-500'/>
+                </div>
             </form>
         </div>
     )
