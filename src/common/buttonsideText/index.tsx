@@ -26,7 +26,7 @@ export default function ButtonWithIcon(props: ButtonProps) {
             </button>
             {userLocation != 0 && (
                 <CheckCircleIcon
-                    className="h-5 w-5 text-green-400"
+                    className="h-5 w-5 text-green-400 mt-1"
                     aria-hidden="true"
                 />
             )}
