@@ -46,17 +46,25 @@ model CredentialsUser {
   password              String
   LocationDataCreatedBy LocationData[] @relation("createdBy")
   LocationDataUpdatedBy LocationData[] @relation("updatedBy")
+  crimeTipCreatedBy     CrimeTip[]     @relation("createdBy")
+  crimeTipUpdatedBy     CrimeTip[]     @relation("updatedBy")
 }
 
 model CrimeTip {
-  id            Int     @id @default(autoincrement())
+  id            Int              @id @default(autoincrement())
   location      String
   city          String
   state         String
-  Zip           String
+  zip           String
   latitude      Decimal
   longitude     Decimal
   tip           String
   personalInfo  String
   addtionalInfo String
+  createdAt     DateTime?        @default(now())
+  updatedAt     DateTime?        @updatedAt
+  createdBy     CredentialsUser? @relation("createdBy", fields: [createdById], references: [id])
+  createdById   Int?
+  updateBy      CredentialsUser? @relation("updatedBy", fields: [updatedById], references: [id])
+  updatedById   Int?
 }

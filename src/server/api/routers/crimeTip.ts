@@ -4,7 +4,11 @@ import { createTRPCRouter, publicProcedure } from "../trpc";
 export const crimeTipRouter = createTRPCRouter({
     list:publicProcedure
         .query(async ({ctx})=>{
-            return await ctx.prisma.crimeTip.findMany();
+            return await ctx.prisma.crimeTip.findMany({
+                orderBy:{
+                    createdAt: 'desc'
+                }
+            });
         }),
     create: publicProcedure
         .input(crimeTipSchema()).mutation(async ({ ctx, input }: any) => {
@@ -26,7 +30,7 @@ function crimeTipSchema() {
         location: z.string(),
         city: z.string(),
         state: z.string(),
-        Zip: z.string(),
+        zip: z.string(),
         latitude: z.number(),
         longitude: z.number(),
         tip: z.string().optional(),
