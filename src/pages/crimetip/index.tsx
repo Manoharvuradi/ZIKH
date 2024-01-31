@@ -33,7 +33,7 @@ const CrimeTip = () => {
             location: crimeTipFormValues.location,
             city:crimeTipFormValues.city,
             state: crimeTipFormValues.state,
-            Zip: crimeTipFormValues.zip as string,
+            zip: crimeTipFormValues.zip as string,
             latitude: location.latitude,
             longitude: location.longitude,
             tip: tip,

@@ -4,18 +4,14 @@ import { createTRPCContext } from "../../../../server/api/trpc";
 import { getHTTPStatusCodeFromError } from "@trpc/server/http";
 import { TRPCError } from "@trpc/server";
 
-const LocationEditHandler = async (req: NextApiRequest, res: NextApiResponse) => {
+const CrimetipShowHandler = async (req: NextApiRequest, res: NextApiResponse) => {
     const ctx = await createTRPCContext({ req, res });
     const caller = appRouter.createCaller(ctx);
-    if (req.method === "PUT") {
+    if (req.method === "GET") {
         try {
-            // const body = convertStringToDateFormate(req.body);
-            const request: any = {
-                id: req.query.id,
-                body: req.body,
-            };
-            const locationData = await caller.locationData.update(request);
-            res.status(200).json({ status: true, data: locationData });
+            const { id } = req.query;
+            const crimeTip = await caller.crimeTip.show(Number(id));
+            res.status(200).json({ status: true, data: crimeTip });
         } catch (cause) {
             if (cause instanceof TRPCError) {
                 const httpCode = getHTTPStatusCodeFromError(cause);
@@ -34,4 +30,4 @@ const LocationEditHandler = async (req: NextApiRequest, res: NextApiResponse) =>
     }
 };
 
-export default LocationEditHandler;
+export default CrimetipShowHandler;
