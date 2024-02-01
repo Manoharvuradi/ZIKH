@@ -37,7 +37,7 @@ function Login() {
                 type="password"
                 placeholder='Password'
             />
-            <UpdatedButton type="submit" className="bg-red-900 text-white mx-auto" variant={'ghost'}>
+            <UpdatedButton type="submit" className="bg-red-900 text-white mx-auto w-full" variant={'ghost'}>
                 Save
             </UpdatedButton>
         </form>
