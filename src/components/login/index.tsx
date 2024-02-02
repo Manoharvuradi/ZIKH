@@ -14,7 +14,7 @@ function Login() {
         setEmail(searchParams.get('email'));
         setPassword(searchParams.get('pw'));
     }, [searchParams]);
-    
+
     function handleSubmit(e: FormEvent<HTMLFormElement>) {
         // Prevent the browser from reloading the page
         e.preventDefault();
@@ -24,25 +24,25 @@ function Login() {
     }
 
 
-  return (
-    <div>
-          <form className="mx-auto flex max-w-md flex-col space-y-2 mt-5" onSubmit={handleSubmit} method='post'>
-            <SingleInput 
-                name='email'
-                type="text"
-                placeholder='Email'
-            />
-            <SingleInput 
-                name="password"
-                type="password"
-                placeholder='Password'
-            />
-            <UpdatedButton type="submit" className="bg-red-900 text-white mx-auto w-full" variant={'ghost'}>
-                Save
-            </UpdatedButton>
-        </form>
-    </div>
-  )
+    return (
+        <div>
+            <form className="mx-auto flex max-w-md flex-col space-y-2 mt-5" onSubmit={handleSubmit} method='post'>
+                <SingleInput
+                    name='email'
+                    type="text"
+                    placeholder='Email'
+                />
+                <SingleInput
+                    name="password"
+                    type="password"
+                    placeholder='Password'
+                />
+                <UpdatedButton type="submit" className="bg-red-900 text-white mx-auto w-full" variant={'outline'}>
+                    Save
+                </UpdatedButton>
+            </form>
+        </div>
+    )
 }
 
 export default Login;

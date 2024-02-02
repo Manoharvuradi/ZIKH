@@ -42,7 +42,7 @@ const processEnv = {
   NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
   NEXTAUTH_URL: process.env.NEXTAUTH_URL,
   API_KEY: process.env.API_KEY,
-  ENVIRONMENT: undefined
+  ENVIRONMENT: process.env.ENVIRONMENT,
 };
 
 // Don't touch the part below
