@@ -68,3 +68,16 @@ model CrimeTip {
   updateBy      CredentialsUser? @relation("updatedBy", fields: [updatedById], references: [id])
   updatedById   Int?
 }
+
+model SearchByState {
+  id          Int           @id @default(autoincrement())
+  stateName   String        @unique
+  seachByCity SeachByCity[]
+}
+
+model SeachByCity {
+  id              Int          @id @default(autoincrement())
+  cityName        String       @unique
+  seachByState    SearchByState @relation(fields: [searchByStateId], references: [id])
+  searchByStateId Int
+}
