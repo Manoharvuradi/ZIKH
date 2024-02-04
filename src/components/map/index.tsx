@@ -80,6 +80,7 @@ const Map = () => {
       <>
          <div className='flex flex-row'>
             <div className='w-full border-r-2 border-solid border-gray-300'>
+               
                <MapContainer
                   style={{ height: "100vh" }}
                   center={[51.505, -0.09]}
