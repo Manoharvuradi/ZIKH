@@ -3,6 +3,12 @@ import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from "react-leaf
 import "leaflet/dist/leaflet.css";
 import ShowDataAddModel from '../Modal';
 import { api } from 'Y/utils/api';
+import { Form, FormControl, FormField, FormItem, FormMessage } from 'Y/common/form/form';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Typography } from '../typography/typography';
+import { SingleInput } from 'Y/common/form/singleInput';
 // import { locationData } from 'Y/utils/helpers';
 
 interface ILocationMarker {
@@ -76,11 +82,46 @@ const Map = () => {
       }
    }, [coorditnates, data]);
 
+   const formSchema = z.object({
+      search: z.string()
+   });
+
+   type FormSchema = z.infer<typeof formSchema>
+
+   const form = useForm<FormSchema>({
+      resolver: zodResolver(formSchema),
+      defaultValues: {
+         search:""
+      }
+   });
+
+   const onSubmit = (data: FormSchema) => {
+      
+   }
+
    return (
       <>
          <div className='flex flex-row'>
             <div className='w-full border-r-2 border-solid border-gray-300'>
-               
+               <Form {...form}>
+                  <form onSubmit={form.handleSubmit(onSubmit)}>
+                     <Typography weight='bold' size='xl' className='my-4'>
+                        Seach
+                     </Typography>
+                     <FormField
+                        control={form.control}
+                        name="search"
+                        render={({ field }) => (
+                           <FormItem>
+                              <FormControl>
+                                 <SingleInput type="search" placeholder={"Search from here"} {...field} />
+                              </FormControl>
+                              <FormMessage />
+                           </FormItem>
+                        )}
+                     />
+                  </form>
+               </Form>
                <MapContainer
                   style={{ height: "100vh" }}
                   center={[51.505, -0.09]}
