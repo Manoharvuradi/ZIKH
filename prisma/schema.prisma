@@ -73,6 +73,8 @@ model SearchByState {
   id          Int           @id @default(autoincrement())
   stateName   String        @unique
   seachByCity SeachByCity[]
+  latitude    Decimal?
+  longitude   Decimal?
 }
 
 model SeachByCity {
@@ -80,4 +82,6 @@ model SeachByCity {
   cityName        String       @unique
   seachByState    SearchByState @relation(fields: [searchByStateId], references: [id])
   searchByStateId Int
+  latitude        Decimal?
+  longitude       Decimal?
 }
