@@ -1,15 +1,36 @@
 
+import { Hydrate } from "@tanstack/react-query";
 import {
-    createStore,
-    applyMiddleware,
     combineReducers,
-    AnyAction,
     Store,
+    Action,
+    applyMiddleware,
+    createStore,
 } from "redux";
+import rootReducer from "./rootReducer";
+import { SagaMiddleware, Task } from "redux-saga";
+import createSagaMiddleware from "@redux-saga/core";
+import rootSaga from "./rootSaga";
 
+export interface SagaStore extends Store {
+    sagaTask?: Task;
+}
 export interface IState {
 
 }
-const reducer = (state: IState | undefined, action: AnyAction) => {
+
+const combinedReducer = combineReducers(rootReducer);
+const reducer = (state: IState | undefined, action: Action<any>) => {
+    return combinedReducer(state as any, action);
+}
+
+const store = () => {
+    let store: Store<IState, Action<any>>;
+    const sagaMiddleware: SagaMiddleware = createSagaMiddleware();
+
+    store = createStore(reducer, undefined, applyMiddleware(sagaMiddleware));
+    (store as SagaStore).sagaTask = sagaMiddleware.run(rootSaga);
 
 }
+
+export default store;
