@@ -1,3 +1,4 @@
+import { zodResolver } from '@hookform/resolvers/zod';
 import Button from 'Y/common/buttons/filledButton';
 import ButtonWithIcon from 'Y/common/buttonsideText';
 import FormComponent from 'Y/common/form';
@@ -7,7 +8,9 @@ import { IEvent } from 'Y/interfaces/common/form';
 import { api } from 'Y/utils/api';
 import { crimeTipInputs } from 'Y/utils/constants/crimetip';
 import React, { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
+import { z } from 'zod';
 
 interface ICrimeTip {
     location: string;
@@ -94,6 +97,34 @@ const CrimeTip = () => {
         setAdditionalInfo(e.target.value)
     }
 
+    const formSchema = z.object({
+        location: z.string(),
+        city: z.string(),
+        state: z.string(),
+        zip: z.string(),
+        latitude: z.number(),
+        longitude: z.number(),
+        yourTip: z.string(),
+        personalInformation: z.string(),
+        addtionalInfo: z.string(),
+    });
+
+    type FormSchema = z.infer<typeof formSchema>;
+    const form = useForm<FormSchema>({
+        resolver: zodResolver(formSchema),
+        defaultValues: {
+            location: '',
+            city: '',
+            state: '' as any,
+            zip: '',
+            latitude: 0 as any,
+            longitude: 0 as any,
+            yourTip: '',
+            personalInformation: '' as any,
+            addtionalInfo: '' as any
+        },
+    });
+
     return (
         <>
             {!loading ? (
@@ -105,6 +136,7 @@ const CrimeTip = () => {
                             formValues={crimeTipFormValues}
                             handleChange={handleChangeCrimeTip}
                         />
+
                         <div className='border-black border rounded-md w-52 px-3 py ml-3'>
                             <ButtonWithIcon
                                 text={"Use My Location"}

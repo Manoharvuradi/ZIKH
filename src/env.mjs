@@ -20,6 +20,7 @@ const server = z.object({
   ),
   ENVIRONMENT: z.enum(["LOCAL", "DEVELOPMENT", "UAT", "PRODUCTION"]).optional(),
   API_KEY: z.string().optional(),
+  CRIME_CMS_TOKEN: z.string().optional()
 });
 
 /**
@@ -43,6 +44,7 @@ const processEnv = {
   NEXTAUTH_URL: process.env.NEXTAUTH_URL,
   API_KEY: process.env.API_KEY,
   ENVIRONMENT: process.env.ENVIRONMENT,
+  CRIME_CMS_TOKEN: process.env.CRIME_CMS_TOKEN,
 };
 
 // Don't touch the part below
