@@ -1,8 +1,14 @@
+import { ICrimeTip } from "Y/redux/crimeTips/state";
+import { crimeCMS } from "Y/services/crime-tip-cms/instances";
+import CrimeCMS from "Y/services/crime/services";
 import { NextApiRequest, NextApiResponse } from "next";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
-    const body = req.body;
+    const body: ICrimeTip = req.body;
     try{
+        // const userAuth = req.query.userAuth as IUserAuth;
+        const tipId = crimeCMS.getTip(body);
+
 
     }catch(error: any){
 

@@ -24,3 +24,9 @@ export const crimeTipInputs = [
         required: true
     },
 ]
+
+export const API_URLS = {
+    crimetip: {
+        create:"/api/crimetip/create",
+    }
+}
