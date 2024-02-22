@@ -11,12 +11,13 @@ import rootReducer from "./rootReducer";
 import { SagaMiddleware, Task } from "redux-saga";
 import createSagaMiddleware from "@redux-saga/core";
 import rootSaga from "./rootSaga";
+import { ICrimeTipState } from "./crimeTips/state";
 
 export interface SagaStore extends Store {
     sagaTask?: Task;
 }
 export interface IState {
-
+    crimeTipState: ICrimeTipState
 }
 
 const combinedReducer = combineReducers(rootReducer);
