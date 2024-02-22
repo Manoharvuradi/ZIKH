@@ -54,7 +54,7 @@ export interface ButtonProps
 }
 
 
-const UpdatedButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     (
         {
             className,
@@ -85,6 +85,6 @@ const UpdatedButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
     }
 );
 
-UpdatedButton.displayName = "UpdatedButton";
+Button.displayName = "UpdatedButton";
 
-export { UpdatedButton, buttonVariants};
+export { Button, buttonVariants};

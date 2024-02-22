@@ -10,7 +10,7 @@ interface ButtonProps
     disabled?: boolean;
     className?: string;
 }
-export default function Button(props: ButtonProps) {
+export default function OldButton(props: ButtonProps) {
     const { text, onClick, disabled, className, type } = props;
     return (
             <button

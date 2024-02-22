@@ -1,4 +1,4 @@
-import { UpdatedButton } from 'Y/common/buttons/button';
+import { Button } from 'Y/common/buttons/button';
 import { api } from 'Y/utils/api';
 import { useRouter } from 'next/router';
 import React, { useReducer } from 'react'
@@ -25,9 +25,9 @@ const BrowseByState = () => {
           </div>
         ))}
       </div>
-      <UpdatedButton type="submit" className="bg-red-900 text-white mx-auto hover:text-black hover:bg-white" variant={'outline'} onClick={handleCityAdd}>
+      <Button type="submit" className="bg-red-900 text-white mx-auto hover:text-black hover:bg-white" variant={'outline'} onClick={handleCityAdd}>
         Add city
-      </UpdatedButton>
+      </Button>
     </div>
   )
 }

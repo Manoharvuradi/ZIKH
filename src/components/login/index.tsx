@@ -1,7 +1,5 @@
-import { UpdatedButton } from 'Y/common/buttons/button';
+import { Button } from 'Y/common/buttons/button';
 import { SingleInput } from 'Y/common/form/singleInput';
-import { IEvent } from 'Y/interfaces/common/form'
-import { signIn } from 'next-auth/react';
 import { useSearchParams } from 'next/navigation';
 import React, { FormEvent, useEffect, useState } from 'react'
 
@@ -37,9 +35,9 @@ function Login() {
                     type="password"
                     placeholder='Password'
                 />
-                <UpdatedButton type="submit" className="bg-red-900 text-white mx-auto w-full" variant={'outline'}>
+                <Button type="submit" className="bg-red-900 text-white mx-auto w-full" variant={'outline'}>
                     Save
-                </UpdatedButton>
+                </Button>
             </form>
         </div>
     )
