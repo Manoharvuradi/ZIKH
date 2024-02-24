@@ -6,6 +6,7 @@ import { api } from "Y/utils/api";
 
 import "Y/styles/globals.css";
 import Layout from "Y/components/layout";
+import wrapper from "Y/redux/store";
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
@@ -20,4 +21,4 @@ const MyApp: AppType<{ session: Session | null }> = ({
   );
 };
 
-export default api.withTRPC(MyApp);
+export default wrapper.withRedux(MyApp);

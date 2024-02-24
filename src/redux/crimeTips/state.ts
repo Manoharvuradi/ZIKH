@@ -4,7 +4,7 @@ export interface ICrimeTip {
     state: string;
     zip: string;
     latitude: number;
-    longtitude: number;
+    longitude: number;
     tip:string;
     personalInfo: string;
     addtionalInfo: string;

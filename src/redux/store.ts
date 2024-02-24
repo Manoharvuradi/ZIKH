@@ -12,6 +12,7 @@ import { SagaMiddleware, Task } from "redux-saga";
 import createSagaMiddleware from "@redux-saga/core";
 import rootSaga from "./rootSaga";
 import { ICrimeTipState } from "./crimeTips/state";
+import { createWrapper } from "next-redux-wrapper";
 
 export interface SagaStore extends Store {
     sagaTask?: Task;
@@ -31,7 +32,8 @@ const store = () => {
 
     store = createStore(reducer, undefined, applyMiddleware(sagaMiddleware));
     (store as SagaStore).sagaTask = sagaMiddleware.run(rootSaga);
+    return store;
 
 }
-
-export default store;
+const wrapper = createWrapper(store);
+export default wrapper;

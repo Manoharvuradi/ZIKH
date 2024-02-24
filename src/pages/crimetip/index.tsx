@@ -5,19 +5,22 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { SingleInput } from 'Y/common/form/singleInput';
 import { CustomSpinner } from 'Y/components/loader';
 import { IEvent } from 'Y/interfaces/common/form';
+import { createCrimeTipDetails } from 'Y/redux/crimeTips/acrions';
+import { ICrimeTip } from 'Y/redux/crimeTips/state';
 import { IState } from 'Y/redux/store';
 import { api } from 'Y/utils/api';
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
+import { connect, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { z } from 'zod';
 
-interface ICrimeTip {
-    location: string;
-    city: string;
-    state: string;
-    zip: string;
-}
+// interface ICrimeTip {
+//     location: string;
+//     city: string;
+//     state: string;
+//     zip: string;
+// }
 const CrimeTip = () => {
     const [location, setLocation] = useState({
         latitude: 0,
@@ -27,46 +30,47 @@ const CrimeTip = () => {
     const [tip, setTip] = useState<string>();
     const [personalInfo, setPersonalInfo] = useState<string>();
     const [error, setError] = useState<any>();
-    const [crimeTipFormValues, setCrimeTipFormValues] = useState({} as ICrimeTip);
+    // const [crimeTipFormValues, setCrimeTipFormValues] = useState({} as ICrimeTip);
     const [addtionalInfo, setAdditionalInfo] = useState<string>();
-    const crimeTip = api.crimeTip.create.useMutation();
-    const handleSubmit = async () => {
-        setLoading(true);
-        const req = {
-            location: crimeTipFormValues.location,
-            city: crimeTipFormValues.city,
-            state: crimeTipFormValues.state,
-            zip: crimeTipFormValues.zip as string,
-            latitude: location.latitude,
-            longitude: location.longitude,
-            tip: tip,
-            personalInfo: personalInfo,
-            addtionalInfo: addtionalInfo
-        }
-        try {
-            const crimeTipResponse = await crimeTip.mutateAsync({
-                ...req
-            });
-            if (crimeTipResponse) {
-                setLoading(false);
-                toast.success("Successfully added crime tip");
-            } else {
-                setLoading(false);
-                toast.error("Failed to add crime tip");
-            }
-        } catch (error) {
-            setLoading(false);
-            toast.error("Please try again later");
-            console.log('error', error);
-        }
-    }
-    const handleChangeCrimeTip = (e: IEvent) => {
-        const { name, value } = e.target;
-        setCrimeTipFormValues({
-            ...crimeTipFormValues,
-            [name]: value
-        })
-    }
+    const dispatch = useDispatch();
+    // const crimeTip = api.crimeTip.create.useMutation();
+    // const handleSubmit = async () => {
+    //     setLoading(true);
+    //     const req = {
+    //         location: crimeTipFormValues.location,
+    //         city: crimeTipFormValues.city,
+    //         state: crimeTipFormValues.state,
+    //         zip: crimeTipFormValues.zip as string,
+    //         latitude: location.latitude,
+    //         longitude: location.longitude,
+    //         tip: tip,
+    //         personalInfo: personalInfo,
+    //         addtionalInfo: addtionalInfo
+    //     }
+    //     try {
+    //         const crimeTipResponse = await crimeTip.mutateAsync({
+    //             ...req
+    //         });
+    //         if (crimeTipResponse) {
+    //             setLoading(false);
+    //             toast.success("Successfully added crime tip");
+    //         } else {
+    //             setLoading(false);
+    //             toast.error("Failed to add crime tip");
+    //         }
+    //     } catch (error) {
+    //         setLoading(false);
+    //         toast.error("Please try again later");
+    //         console.log('error', error);
+    //     }
+    // }
+    // const handleChangeCrimeTip = (e: IEvent) => {
+    //     const { name, value } = e.target;
+    //     setCrimeTipFormValues({
+    //         ...crimeTipFormValues,
+    //         [name]: value
+    //     })
+    // }
     const handleUseLocation = () => {
         if ('geolocation' in navigator) {
             navigator.geolocation.getCurrentPosition(
@@ -104,8 +108,8 @@ const CrimeTip = () => {
         zip: z.string(),
         latitude: z.number(),
         longitude: z.number(),
-        yourTip: z.string(),
-        personalInformation: z.string(),
+        tip: z.string(),
+        personalInfo: z.string(),
         addtionalInfo: z.string(),
     });
 
@@ -119,14 +123,15 @@ const CrimeTip = () => {
             zip: '',
             latitude: 0 as any,
             longitude: 0 as any,
-            yourTip: '',
-            personalInformation: '' as any,
+            tip: '',
+            personalInfo: '' as any,
             addtionalInfo: '' as any
         },
     });
 
     const onSubmit = async (values: ICrimeTip) => {
         console.log("form", location?.latitude, location?.longitude);
+        const response = dispatch(createCrimeTipDetails(values, () => { }));
     }
 
     return (
@@ -199,7 +204,7 @@ const CrimeTip = () => {
                             </div>
                             <FormField
                                 control={form.control}
-                                name="yourTip"
+                                name="tip"
                                 render={({ field }) => (
                                     <FormItem>
                                         <FormLabel>Your Tip</FormLabel>
@@ -212,7 +217,7 @@ const CrimeTip = () => {
                             />
                             <FormField
                                 control={form.control}
-                                name="personalInformation"
+                                name="personalInfo"
                                 render={({ field }) => (
                                     <FormItem>
                                         <FormLabel>Personal Information</FormLabel>
@@ -249,10 +254,15 @@ const CrimeTip = () => {
     )
 }
 
-const mapStateToProps = (state: IState) => {
-    return{
+// const mapStateToProps = (state: IState) => {
+//     return{
+//         crimeState: state.crimeTipState
+//     }
+// }
 
-    }
-}
+// const mapDispatchProps =  {
+//     createCrimeTipDetails
+// }
 
+// export default connect(mapStateToProps, mapDispatchProps)(CrimeTip);
 export default CrimeTip;
