@@ -23,7 +23,7 @@ function ShowDataAddModel({
     const [formValues, setFormValues] = useState<any>();
     const [loader, setLoader] = useState(false);
 
-    const addLocationDetails = api.locationData.create.useMutation();
+    // const addLocationDetails = api.locationData.create.useMutation();
     const handleChange = (e: IEvent) => {
         const {name, value} = e.target;
         setFormValues({
@@ -40,16 +40,17 @@ function ShowDataAddModel({
             description: formValues.description,
         }
         try{
-            const response = await addLocationDetails.mutateAsync({
-                ...req
-            })
-            if(response){
-                toast.success("Successfully Added details");
-                setLoader(false);
-            }else{
-                toast.error("Failed add details");
-                setLoader(false);
-            }
+            // const response = await addLocationDetails.mutateAsync({
+            //     ...req
+            // })
+            // if(response){
+            //     toast.success("Successfully Added details");
+            //     setLoader(false);
+            // }else{
+            //     toast.error("Failed add details");
+            //     setLoader(false);
+            // }
+            console.log("testing");
         }catch(error){
             toast.error("Please try again later");
             setLoader(false);
