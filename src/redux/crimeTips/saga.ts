@@ -1,21 +1,19 @@
 import { Action } from "redux";
 import { all, put, takeLatest } from "redux-saga/effects";
-import { crimeTipActions, getCrimeTipDetailsFailure } from "./acrions";
+import { CustomAction, crimeTipActions, getCrimeTipDetailsFailure } from "./acrions";
 import axios, { AxiosResponse } from "axios";
 import { API_URLS } from "Y/utils/constants/crimetip";
 
-function* submitCrimeTip(action: Action<any>): Generator {
+function* submitCrimeTip(action: CustomAction<any>): Generator {
     try {
         const payload = action;
-        console.log("payload", payload);
-        const response: AxiosResponse | any = yield axios.post(API_URLS.crimetip.create, payload, { baseURL: "/" });
-        console.log("response", response);
-        // if(response.)
+        const response: AxiosResponse | any = yield axios.post("api/crimetip/create", payload, { baseURL: "/" });
+        return response;
     } catch (error) {
-        console.log("error", error);
         yield put(
             getCrimeTipDetailsFailure("Something went wrong")
         )
+        throw new Error("error at submit Crime tip, submitCrimeTip");
     }
 }
 function* crimeTipSubmission(): Generator {

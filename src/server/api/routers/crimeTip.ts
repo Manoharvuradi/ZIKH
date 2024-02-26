@@ -26,7 +26,6 @@ export const crimeTipRouter = createTRPCRouter({
 
     show: publicProcedure
         .input(z.number()).query(async ({ ctx, input }) => {
-            // console.log("input)))))))))))))))))))))))))))))))", typeof input);
             try{
                 const crimeTipShowResponse = await ctx?.prisma.crimeTip.findFirst({
                     where:{

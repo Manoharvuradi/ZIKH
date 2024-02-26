@@ -7,7 +7,6 @@ const BrowseByState = () => {
   const router = useRouter();
   const { isLoading, data, error } = api.searchByState.list.useQuery();
 
-  console.log("data", data);
 
   const handleCityAdd = () => {
     console.log('state added');

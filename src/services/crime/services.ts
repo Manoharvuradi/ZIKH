@@ -10,7 +10,6 @@ class CrimeCMS {
      * @returns
      */
     async getTip(payload: ICrimeTip) {
-        // const { location, city, state, zip, latitude, longitude, tip, personalInfo, addtionalInfo } = data;
         const res = await crimeCMSClient(API_URLS.crimetip.create,"post", payload);
         if(res.status == 200 && res.data.data) {
             return res.data.data;

@@ -13,7 +13,7 @@ export async function crimeCMSClient(
     const config: AxiosRequestConfig = {
         method: method,
         url: url,
-        baseURL: process.env.NEXT_PUBLIC_TELKOM_CMS_URL,
+        baseURL: process.env.NEXT_PUBLIC_CONTENT_URL,
         headers: clientHeaders,
         data: payload,
         responseType: responseType,
