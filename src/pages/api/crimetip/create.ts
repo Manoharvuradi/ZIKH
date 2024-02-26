@@ -7,11 +7,11 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     const body: ICrimeTip = req.body;
     try{
         // const userAuth = req.query.userAuth as IUserAuth;
-        const tipId = crimeCMS.getTip(body);
-
+        const tipId = await crimeCMS.getTip(body);
+        return tipId;
 
     }catch(error: any){
-
+        throw new Error("tip id faild", error);
     }
 }
 export default handler;

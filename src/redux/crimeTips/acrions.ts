@@ -2,7 +2,7 @@ import { request } from "http";
 import { Action } from "redux";
 import { ICrimeTip } from "./state";
 
-interface CustomAction<T> extends Action<any> {
+export interface CustomAction<T> extends Action<any> {
     type: string;
     payload: T;
     onApiSuccessCallback: () => void;
@@ -34,7 +34,6 @@ export const createCrimeTipDetails = (
     crimeTipRegistrationState: ICrimeTip,
     onApiSuccessCallback: () => void
 )=>{
-    console.log("inside action", crimeTipRegistrationState);
     return {
         type: crimeTipActions.CREATE_CRIME_TIP,
         crimeTipRegistrationState,

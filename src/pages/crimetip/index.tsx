@@ -33,44 +33,6 @@ const CrimeTip = () => {
     // const [crimeTipFormValues, setCrimeTipFormValues] = useState({} as ICrimeTip);
     const [addtionalInfo, setAdditionalInfo] = useState<string>();
     const dispatch = useDispatch();
-    // const crimeTip = api.crimeTip.create.useMutation();
-    // const handleSubmit = async () => {
-    //     setLoading(true);
-    //     const req = {
-    //         location: crimeTipFormValues.location,
-    //         city: crimeTipFormValues.city,
-    //         state: crimeTipFormValues.state,
-    //         zip: crimeTipFormValues.zip as string,
-    //         latitude: location.latitude,
-    //         longitude: location.longitude,
-    //         tip: tip,
-    //         personalInfo: personalInfo,
-    //         addtionalInfo: addtionalInfo
-    //     }
-    //     try {
-    //         const crimeTipResponse = await crimeTip.mutateAsync({
-    //             ...req
-    //         });
-    //         if (crimeTipResponse) {
-    //             setLoading(false);
-    //             toast.success("Successfully added crime tip");
-    //         } else {
-    //             setLoading(false);
-    //             toast.error("Failed to add crime tip");
-    //         }
-    //     } catch (error) {
-    //         setLoading(false);
-    //         toast.error("Please try again later");
-    //         console.log('error', error);
-    //     }
-    // }
-    // const handleChangeCrimeTip = (e: IEvent) => {
-    //     const { name, value } = e.target;
-    //     setCrimeTipFormValues({
-    //         ...crimeTipFormValues,
-    //         [name]: value
-    //     })
-    // }
     const handleUseLocation = () => {
         if ('geolocation' in navigator) {
             navigator.geolocation.getCurrentPosition(
@@ -130,7 +92,6 @@ const CrimeTip = () => {
     });
 
     const onSubmit = async (values: ICrimeTip) => {
-        console.log("form", location?.latitude, location?.longitude);
         const response = dispatch(createCrimeTipDetails(values, () => { }));
     }
 

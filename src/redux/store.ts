@@ -13,6 +13,7 @@ import createSagaMiddleware from "@redux-saga/core";
 import rootSaga from "./rootSaga";
 import { ICrimeTipState } from "./crimeTips/state";
 import { createWrapper } from "next-redux-wrapper";
+import { CustomAction } from "./crimeTips/acrions";
 
 export interface SagaStore extends Store {
     sagaTask?: Task;
@@ -22,7 +23,7 @@ export interface IState {
 }
 
 const combinedReducer = combineReducers(rootReducer);
-const reducer = (state: IState | undefined, action: Action<any>) => {
+const reducer = (state: IState | undefined, action: CustomAction<ICrimeTipState>) => {
     return combinedReducer(state as any, action);
 }
 
