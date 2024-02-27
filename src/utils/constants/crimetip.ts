@@ -28,5 +28,8 @@ export const crimeTipInputs = [
 export const API_URLS = {
     crimetip: {
         create:"/api/crimetip/create",
+    },
+    searchByState:{
+        create:"/api/seachByState/create",
     }
 }
