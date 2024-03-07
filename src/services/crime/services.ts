@@ -19,7 +19,7 @@ class CrimeCMS {
     }
 
     async addingCity(payload: ISearchByState) {
-        const res = await crimeCMSClient(API_URLS.searchByState.create,"post", payload);
+        const res = await crimeCMSClient(API_URLS.searchByState.create,"get", payload);
         if(res.status == 200 && res.data.data) {
             return res.data.data;
         }

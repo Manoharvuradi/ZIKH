@@ -7,7 +7,7 @@ export default function reducer(
     action: CustomAction<ISearchByStateActions>
 ): ISearchByStateActions {
     switch (action.type) {
-        case searchByStateActions.CREATE_SEARCH_BY_STATE:
+        case searchByStateActions.LIST_STATE:
             return {
                 ...state,
                 searchByState: action.payload,

@@ -10,7 +10,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         return tipId;
 
     }catch(error: any){
-        console.log(error);
         throw new Error("tip id faild");
     }
 }
