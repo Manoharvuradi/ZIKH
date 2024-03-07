@@ -1,7 +1,7 @@
 import { CustomAction } from "../crimeTips/acrions";
 
 export const searchByStateActions = {
-    CREATE_SEARCH_BY_STATE: "CREATE_SEARCH_BY_STATE",
+    LIST_STATE: "LIST_STATE",
     CREATE_SEARCH_BY_STATE_SUCCESS: "CREATE_SEARCH_BY_STATE_SUCCESS",
     CREATE_SEARCH_BY_STATE_FAILURE: "CREATE_SEARCH_BY_STATE_FAILURE",
 }
@@ -11,7 +11,7 @@ export const addState = (
     onApiSuccessCallback: () => void
 ): CustomAction<any> => {
     return {
-        type: searchByStateActions.CREATE_SEARCH_BY_STATE,
+        type: searchByStateActions.LIST_STATE,
         payload: request,
         onApiSuccessCallback,
     };

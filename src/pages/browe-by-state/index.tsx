@@ -1,19 +1,23 @@
 import { Button } from 'Y/common/buttons/button';
+import { addState } from 'Y/redux/searchByState/actions';
 import { api } from 'Y/utils/api';
 import { useRouter } from 'next/router';
 import React, { useReducer } from 'react'
+import { useDispatch } from 'react-redux';
 
 const BrowseByState = () => {
   const router = useRouter();
   const { isLoading, data, error } = api.searchByState.list.useQuery();
 
-
+ const dispatch = useDispatch();
   const handleCityAdd = () => {
     console.log('state added');
   }
   const handleClickState = (id: number) => {
     router.push(`/browe-by-state/${id}`);
   }
+  const response = dispatch(addState("", () => { }));
+
   return (
     <div>
       <h1 className='text-3xl text-center mt-5 font-bold'>Browse by state</h1>
